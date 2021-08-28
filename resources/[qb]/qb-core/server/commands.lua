@@ -155,3 +155,23 @@ QBCore.Commands.Add("ooc", "OOC Chat Message", {}, false, function(source, args)
 		end
 	end
 end)
+
+QBCore.Commands.Add("givecash", "send money to player", {{name="id", help="id player"}, {name="amount", help="amount"}}, true, function(source, args)
+    local xPlayer = QBCore.Functions.GetPlayer(source)
+    local Player = QBCore.Functions.GetPlayer(tonumber(args[1]))
+    local dollars = tonumber(args[2])
+    local source2 = args[1]
+    if Player ~= nil then
+        if xPlayer.PlayerData.money["cash"] >= tonumber(args[2]) then 
+            Player.Functions.AddMoney('cash', tonumber(args[2]))
+            TriggerClientEvent('QBCore:Notify', source, "you has send  "..Player.PlayerData.charinfo.firstname .. " " .. Player.PlayerData.charinfo.lastname.." $".. dollars .. " ")
+            xPlayer.Functions.RemoveMoney('cash', tonumber(args[2]))
+            TriggerClientEvent('QBCore:Notify', source2, "you receive  $".. dollars.." form "..xPlayer.PlayerData.charinfo.firstname .. " " ..xPlayer.PlayerData.charinfo.lastname.." ")
+        else
+            TriggerClientEvent('QBCore:Notify', source, "You Don't Have Enough Money!", "error")
+        end
+
+    else
+        TriggerClientEvent('QBCore:Notify', source, "The player is not awake!", "error")
+    end
+end)
