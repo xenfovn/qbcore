@@ -670,3 +670,13 @@ QBCore.Functions.SetVehicleProperties = function(vehicle, props)
 		end
 	end
 end
+
+Citizen.CreateThread(function()
+    RegisterFontFile('out') -- OUT is gfx file , find on google or dm me
+    
+    QBCore.FontId = RegisterFontId('Tahoma')
+    
+    AddTextEntry('STRING', "<FONT FACE='Tahoma'>~a~</FONT>")
+    AddTextEntry('CUSTOM_STRING', "<FONT FACE='Tahoma'>~a~</FONT>")
+    
+end)
